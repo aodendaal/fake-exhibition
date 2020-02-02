@@ -40,6 +40,9 @@ public class PlayerBusy : MonoBehaviour
 
     private void Update()
     {
+        if (!GameController.isStarted || GameController.isPaused)
+            return;
+
         if (IsBusy)
         {
             if (!Input.GetButton($"{playerInfo.Input}Fire1"))

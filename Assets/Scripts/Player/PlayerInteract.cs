@@ -15,6 +15,9 @@ public class PlayerInteract : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!GameController.isStarted || GameController.isPaused)
+            return;
+
         if (Input.GetButton($"{playerInfo.Input}Fire1"))
         {
             var ray = new Ray(transform.position + (Vector3.up / 2f), transform.forward);

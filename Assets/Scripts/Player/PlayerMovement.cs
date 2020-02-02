@@ -19,6 +19,9 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!GameController.isStarted || GameController.isPaused)
+            return;
+
         var h = Input.GetAxis($"{playerInfo.Input}Horizontal");
         var v = Input.GetAxis($"{playerInfo.Input}Vertical");
         var move = new Vector3(h, 0, v) * speed;

@@ -45,7 +45,7 @@ public class OldPlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameController.isTimerStarted)
+        if (GameController.isStarted)
         {
             MoveAndRotate();
             Interact();

@@ -7,17 +7,22 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    public static bool isTimerStarted = false;
+    public static bool isStarted = false;
     public static bool isGameOver = false;
+    public static bool isPaused = false;
+
     public static int score = 0;
 
     private float timeRemaining = 0;
-    private float gameLength = 15f;
+    private float gameLength = 20f;
 
-    public TMP_Text timeDisplay;
+    [Header("Panels")]
     public GameObject gameOverPanel;
     public GameObject gameStartPanel;
+    public GameObject gamePausePanel;
 
+    [Header("Display Text")]
+    public TMP_Text timeDisplay;
     public TMP_Text scoreText;
     public TMP_Text gameOverScoreText;
 
@@ -28,41 +33,61 @@ public class GameController : MonoBehaviour
 
         gameStartPanel.SetActive(true);
         gameOverPanel.SetActive(false);
+        gamePausePanel.SetActive(false);
 
-        isTimerStarted = false;
+        isStarted = false;
         isGameOver = false;
+        isPaused = false;
+
         score = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!isTimerStarted)
+        if (!isStarted)
         {
-            if (Input.GetButtonDown("Player1 Fire1") || Input.GetButtonDown("Player1 Fire1"))
+            if (Input.GetButtonDown("Player1 Fire1") || Input.GetButtonDown("Player2 Fire1"))
             {
-                isTimerStarted = true;
+                isStarted = true;
                 gameStartPanel.SetActive(false);
 
             }
         }
 
-        if (isTimerStarted)
+        if (isStarted && !isPaused)
         {
             if (timeRemaining > 0)
             {
                 timeRemaining -= Time.deltaTime;
                 DisplayTime();
+
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    Pause();
+                }
             }
             else
             {
                 GameOver();
             }
         }
+        else if (isStarted && isPaused)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Unpause();
+            }
+
+            if (Input.GetButtonDown("Player1 Fire1") || Input.GetButtonDown("Player2 Fire1"))
+            {
+                Application.Quit();
+            }
+        }
 
         if (isGameOver)
         {
-            if (Input.GetButtonDown("Player1 Fire1") || Input.GetButtonDown("Player1 Fire1"))
+            if (Input.GetButtonDown("Player1 Fire1") || Input.GetButtonDown("Player2 Fire1"))
             {
                 SceneManager.LoadScene(1);
             }
@@ -71,9 +96,21 @@ public class GameController : MonoBehaviour
         scoreText.text = score.ToString();
     }
 
+    private void Unpause()
+    {
+        gamePausePanel.SetActive(false);
+        isPaused = false;
+    }
+
+    private void Pause()
+    {
+        gamePausePanel.SetActive(true);
+        isPaused = true;
+    }
+
     private void GameOver()
     {
-        isTimerStarted = false;
+        isStarted = false;
         isGameOver = true;
         gameOverPanel.SetActive(true);
         gameOverScoreText.text = score.ToString();

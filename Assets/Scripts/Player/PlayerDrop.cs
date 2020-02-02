@@ -14,6 +14,9 @@ public class PlayerDrop : MonoBehaviour
 
     void Update()
     {
+        if (!GameController.isStarted || GameController.isPaused)
+            return;
+
         if (Input.GetButton($"{playerInfo.Input}Fire2"))
         {
             var inventory = gameObject.GetComponent<PlayerInventory>();
