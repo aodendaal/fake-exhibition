@@ -14,7 +14,7 @@ public class GameController : MonoBehaviour
     public static int score = 0;
 
     private float timeRemaining = 0;
-    private float gameLength = 20f;
+    private float gameLength = 120f;
 
     [Header("Panels")]
     public GameObject gameOverPanel;
@@ -128,5 +128,11 @@ public class GameController : MonoBehaviour
             timeDisplay.color = Color.red;
         }
 
+    }
+
+    public void ReplayTrailer_Click()
+    {
+        PlayerPrefs.SetInt("HasPlayedFirstTime", 0);
+        SceneManager.LoadScene(0);
     }
 }

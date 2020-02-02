@@ -11,6 +11,9 @@ public class PlayerMovement : MonoBehaviour
 
     private CharacterController controller;
 
+    [SerializeField]
+    private ParticleSystem clouds;
+
     private void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -29,12 +32,14 @@ public class PlayerMovement : MonoBehaviour
         if (move != Vector3.zero)
         {
             playerInfo.animator.SetBool("IsRunning", true);
+            clouds.Play();
 
             transform.rotation = Quaternion.LookRotation(move.normalized);
         }
         else
         {
             playerInfo.animator.SetBool("IsRunning", false);
+            clouds.Stop();
         }
 
         controller.SimpleMove(move);

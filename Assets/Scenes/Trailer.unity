@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d319d47c94b7864f84fa5b9a06567b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  videoClip: {fileID: 32900000, guid: b820edda0bc98f44a90c924a924fe6fa, type: 3}
+  videoClip: {fileID: 32900000, guid: 9223ea87801ac4b4093f36682b4b3e46, type: 3}
   nextSceneId: 1
 --- !u!4 &1060037946
 Transform:
